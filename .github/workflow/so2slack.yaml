@@ -1,3 +1,4 @@
+# adopted from https://github.com/open-telemetry/community/pull/1450
 name: Fetch and Post StackOverflow Questions
 
 on:

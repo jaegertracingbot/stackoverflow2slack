@@ -1,3 +1,4 @@
+# adopted from https://github.com/open-telemetry/community/pull/1450
 import os
 import json
 import requests
