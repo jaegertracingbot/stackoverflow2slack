@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: '0 * * * *'
 
+  # Allows running this workflow manually from the Actions tab
+  workflow_dispatch:
+
 jobs:
   fetch_and_post_questions:
     runs-on: ubuntu-latest
