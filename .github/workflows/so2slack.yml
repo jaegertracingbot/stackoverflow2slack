@@ -3,7 +3,8 @@ name: Fetch and Post StackOverflow Questions
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    # Runs at 08:00, only on Monday.
+    - cron: '0 8 * * 1'
 
   # Allows running this workflow manually from the Actions tab
   workflow_dispatch:
