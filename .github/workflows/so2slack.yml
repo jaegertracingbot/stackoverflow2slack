@@ -33,11 +33,14 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
-        python ./.github/scripts/so2slack.py
+        echo python ./.github/scripts/so2slack.py
+        date > "${TIMESTAMP_FILE}"
     - name: Commit and push state file
       run: |
-        git config user.name "GitHub Action"
-        git config user.email "noreply@example.com"
+        git config user.name 'jaegertracingbot'
+        git config user.email 'jaegertracingbot@users.noreply.github.com'
         git add "${TIMESTAMP_FILE}"
         git commit -m "Update timestamp"
         git push
+     env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
