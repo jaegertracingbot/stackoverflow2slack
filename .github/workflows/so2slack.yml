@@ -20,11 +20,6 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Set git identity
-      run: |
-        git config user.name 'github-actions[bot]'
-        git config user.email 'github-actions[bot]@users.noreply.github.com'
-
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -34,14 +29,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install requests
+
     - name: Fetch and post questions
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
-        echo python ./.github/scripts/so2slack.py
-        date > "${TIMESTAMP_FILE}"
+        python ./.github/scripts/so2slack.py
+
     - name: Commit and push state file
       run: |
+        git config user.name 'github-actions[bot]'
+        git config user.email 'github-actions[bot]@users.noreply.github.com'
         git add "${TIMESTAMP_FILE}"
         git commit -m "Update timestamp"
         git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
