@@ -36,7 +36,14 @@ jobs:
       run: |
         python ./.github/scripts/so2slack.py
 
+    - name: Check if state.txt was updated
+      id: check_state
+      run: |
+        git diff --quiet --exit-code -- ./so2slack_timestamp.txt
+        echo "::set-output name=updated::$?"
+
     - name: Commit and push state file
+      if: steps.check_state.outputs.updated == '1'
       run: |
         git config user.name 'github-actions[bot]'
         git config user.email 'github-actions[bot]@users.noreply.github.com'
