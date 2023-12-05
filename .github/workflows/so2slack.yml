@@ -40,7 +40,7 @@ jobs:
       id: check_state
       run: |
         git diff --quiet --exit-code -- ./so2slack_timestamp.txt
-        echo "::set-output name=updated::$?"
+        echo "updated=$?" >> $GITHUB_OUTPUT
 
     - name: Commit and push state file
       if: steps.check_state.outputs.updated == '1'
