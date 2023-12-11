@@ -40,7 +40,7 @@ jobs:
       id: check_state
       run: |
         echo "updated=0" > $GITHUB_OUTPUT
-        git diff --quiet --exit-code -- ./so2slack_timestamp.txt || echo "updated=$?" > $GITHUB_OUTPUT
+        git diff --quiet --exit-code -- "${TIMESTAMP_FILE}" || echo "updated=1" > $GITHUB_OUTPUT
 
     - name: Commit and push state file
       if: steps.check_state.outputs.updated == '1'
@@ -48,6 +48,6 @@ jobs:
         git config user.name 'github-actions[bot]'
         git config user.email 'github-actions[bot]@users.noreply.github.com'
         git add "${TIMESTAMP_FILE}"
-        git commit -m "Update timestamp"
+        git commit -m "Update timestamp $(date -r $(cat so2slack_timestamp.txt))"
         git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
         git push
