@@ -48,6 +48,7 @@ jobs:
         git config user.name 'github-actions[bot]'
         git config user.email 'github-actions[bot]@users.noreply.github.com'
         git add "${TIMESTAMP_FILE}"
-        git commit -m "Update timestamp $(date -r $(cat so2slack_timestamp.txt))"
+        ts=$(perl -le "print scalar localtime $(cat ${TIMESTAMP_FILE})")
+        git commit -m "Update timestamp ${ts}"
         git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
         git push
